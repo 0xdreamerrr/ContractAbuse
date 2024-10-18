@@ -12,8 +12,6 @@ contract Create2Test is Test {
     string arbUrl = vm.rpcUrl("ARB_URL");
     uint256 internal eth;
     uint256 internal arb;
-    address internal arbContract;
-    address internal ethContract;
 
     function setUp() public {
         eth = vm.createFork(ethUrl);
@@ -32,7 +30,6 @@ contract Create2Test is Test {
 
         address computedAddress = create2.computeAddress(salt, keccak256(creationCode));
         address deployedAddress = create2.deploy(salt , creationCode);
-        ethContract = deployedAddress;
         vm.stopPrank();
 
         assertEq(computedAddress, deployedAddress); 
@@ -50,7 +47,6 @@ contract Create2Test is Test {
 
         address computedAddress = create2.computeAddress(salt, keccak256(creationCode));
         address deployedAddress = create2.deploy(salt , creationCode);
-        arbContract = deployedAddress;
         vm.stopPrank();
 
         assertEq(computedAddress, deployedAddress);
