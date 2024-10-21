@@ -34,7 +34,7 @@ contract ContractDeploy is Script {
             revert();
         } 
         vm.stopBroadcast();
-        console.log("Contract deployed on Etherium at:", addr);
+        console.log("Contract deployed on Etherium Sepolia at:", addr);
 
         vm.selectFork(arb);
         vm.startBroadcast(deployerPrivateKey);
@@ -46,6 +46,6 @@ contract ContractDeploy is Script {
             revert();
         } 
         vm.stopBroadcast();
-        console.log("Contract deployed on Arbitrum at:", addr);
+        console.log("Contract deployed on Arbitrum Sepolia at:", addr);
     }
 }

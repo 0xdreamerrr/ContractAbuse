@@ -2,36 +2,19 @@
 pragma solidity ^0.8.27;
 
 import "./ContractWithNoReceive.sol";
+import "./DepositContract.sol";
 
 contract ContractFactory {
-    NoReceive[] public noReceive;
+    address public depositContractAddress;
 
     constructor() {
-        createNoReceiveContract();
+        createDepositContract();
     }
 
-    function createNoReceiveContract() private {
-        NoReceive newNoReceive = new NoReceive();
-        noReceive.push(newNoReceive);
-    }
-
-    function deposit() public payable {}
-
-    function transferETHtoContract(address contractAddress) public {
-        require(isContract(contractAddress), "ContractFactory: Address not exist");
-        selfdestruct(payable(contractAddress));
-    }
-
-    function getAddress() public view returns (address) {
-        return address(noReceive[0]);
-    }
-
-    function isContract(address addr) view public returns (bool){
-        uint32 size;
-        assembly {
-            size := extcodesize(addr)
-        }
-        return (size > 0);
+    function createDepositContract() public returns (address) {
+        DepositContract newDepositContract = new DepositContract();
+        depositContractAddress = address(newDepositContract);
+        return depositContractAddress;
     }
 
 }
